@@ -1,9 +1,10 @@
+# Será importado o Sleep
 from time import sleep
-from random import randint
-import os,sys
-
+# Criado uma classe com o nome Tm, abreviação de Tamaguchi
 class Tm:
+    # Aqui é usado o construtor inicial com um atributo dinâmico e outros já definido previamente
     def __init__(self, nome):
+        # O nome sofrerar um Upercase
         self.nome = str.upper(nome)
         self.energia = 100
         self.fome = 0
@@ -14,13 +15,15 @@ class Tm:
         self.humor = 100
         self.idade = 0
     
+    # Método dormir
     def dormir(self):
+        # Verificará se está nos níveis propício para dormir
         if self.sono < 70:
             print(f"{self.nome}: Não estou com sono!!!")
         else:
             print(f"{self.nome}: Boa noite papai!!!")
 
-            
+            # Retornará os novos valores
             self.sono -= 50
             self.energia += 50
             self.fome += 30
@@ -28,16 +31,21 @@ class Tm:
             self.saude += 30
             self.humor += 30
 
+    # Método Brincar
     def brincar(self):
+        # Aqui estão elencadas as brincadeiras que o Tamaguchi poderá por hora brincar, e elas serão distribuída pela sua idade
         brincadeiras = ["Pega-pega", "Esconde-esconde", "Andar de Bike", "Gravidade 0", "Polícia e Ladrao", "Verdade e Desafio", "Salada de Fruta", "Brincar", "Trabalhar", "Pagar as Contas", "Tentar Brincar"]
+        # Aqui uma vetor que receberá as ações vindas do arquivo "ações.txt"
         acoes = []
-
+        # Aqui abre o arquivo txt 
         acao = open("ações.txt", "rt", encoding="utf-8")
 
+        #E aqui inclui no vetor acima
         for linha in acao:
             linha = str.strip(linha)
             acoes.append(linha)
 
+        # Aqui terá a verificação da idade e das brincadeiras de acordo com a idade
         print("Qual desses jogos você quer brincar: ")
         if self.idade < 6:
             for n in range(0,5):
@@ -54,6 +62,7 @@ class Tm:
         es = int(input()) - 1
         print(acoes[es])
 
+        # Aqui o retorno de cada brincadeira exercida por ele
         if es == 0:
             sleep(3)
             print("Me pegou ＞︿＜")
@@ -132,13 +141,15 @@ class Tm:
                 self.sono += 50
                 self.exp += 10
                 self.humor -= 30
-                 
+                
+    # Aqui é responsável por fazer o Tamaguchi crescer        
     def crescer(self):
         for idade in range(40, 800, 40):
             if self.exp >= idade:
                 self.idade +=1
                 break
-
+    
+    # Aqui Diminui a sede do Tamaguchi
     def beber(self):
         print(f"{self.nome}: Obrigado por me dá de Beber!!!")
 
@@ -149,12 +160,14 @@ class Tm:
         self.energia -= 10
         self.humor += 10
 
+    # Aqui é a área da comida
     def comer(self, rodada):
         if self.fome < 50:
             print(f"{self.nome}: Não estou com fome!!!")
         else:
             print(f"{self.nome}: Quero Comer Papai, o que você vai fazer hoje???")
             
+            # As opções disponíveis e perceba que é dividido pela categoria
             manha = ["Café + Pão", "Café + Leite + Pão + Manteiga", "Tapioca + Ovo + Café + Leite"]
             almoço = ["Macarrao + Almondegas", "Arroz + Creme de Galinha + Salada", "Feijoada"]
             janta = ["Sopa", "Cuz-cuz", "Caldo"]
@@ -162,6 +175,7 @@ class Tm:
             r2 = rodada % 2
             r3 = rodada % 3
 
+            # Aqui verificará qual opção demostrar ao usuário
             if r2 == 0:
                 for n in range(0, len(almoço)):
                     print(f"[{n + 1}] {almoço[n]}")
@@ -184,6 +198,7 @@ class Tm:
             self.humor += vl*3
             self.fome -= vl*10
 
+    # Medicar será usado somente nas últimas ocasiões
     def medicar(self):
         if self.saude > 5:
             print("Você não pode medicar seu filho!")
@@ -198,6 +213,7 @@ class Tm:
             self.humor += 50
             self.fome -= 30      
 
+    # Aqui verificará a morte do Tamaguchi e seu motivo
     def morrer(self):
         a = 1
         if self.idade == 20:
@@ -232,6 +248,7 @@ class Tm:
 
         return a
         
+    # Os Status do Bichinho
     def status(self):
         print(f''' Nome: {self.nome}  |  |  Idade: {self.idade}
         
@@ -245,6 +262,7 @@ class Tm:
         HUMOR: {self.humor} %
         ''')
 
+    # E as verificações finais
     def verificacao(self):
         if self.energia > 99:
             self.energia = 100
